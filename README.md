@@ -1,9 +1,7 @@
 # react-dev-formative-1 — Dev Insights Mini Blog
 
-A small internal blog platform built with **React + TypeScript + Vite** for Dev
-Insights employees to share quick tips and updates. This is a Formative 1
-assessment covering React basics, TypeScript typing, component styling, and
-optimization/HOCs from Weeks 1–3.
+A small internal blog platform built with **React + TypeScript and Vite** for Dev
+Insights employees to share quick tips and updates. 
 
 ## Install, Run, and Test
 
@@ -26,7 +24,7 @@ npm run build
 npm run preview
 ```
 
-There is no separate test suite for this formative — "testing" here means
+There is no separate test suite for this formative . "testing" here means
 running `npm run dev` and confirming the app renders the header and the list
 of sample posts without console errors.
 
@@ -84,18 +82,13 @@ complex `this` bindings, which none of these do.
 
 None beyond the standard Vite React + TypeScript template dependencies
 (`react`, `react-dom`, `@vitejs/plugin-react`, `typescript`, `vite`). No
-CSS-in-JS library was used — styling is done with plain CSS files and inline
-styles, which already satisfies the "at least two methods" requirement.
+CSS-in-JS library was used , styling is done with plain CSS files and inline
+styles.
 
-## Challenges & How I Solved Them
+## Challenges and How I Solved Them
 
-_(Fill this in with your own experience before submitting — a couple of
-sentences on something that was genuinely tricky, e.g. getting the "New!"
-badge logic right, typing the HOC generically, or deciding on the highlight
-color.)_
+The hardest part was creating the withLogger HOC because it needed to work with different prop types, so I used a generic to keep it flexible and type-safe. I also had to figure out the best way to handle conditional styling, using inline styles for data-based highlighting and CSS classes for simple on/off styles. Finally, I used each post’s id as the list key instead of the array index to avoid potential bugs when the list changes.
 
-## Reflection (for Canvas submission)
+## Reflection 
 
-_(Write your 1–2 paragraph reflection here on what you found most valuable
-and what you'd like to explore further — this is meant to be in your own
-words for the formative.)_
+I found it valuable to understand why different React patterns are used, especially inline styles, CSS classes, React.memo, stable keys, and generic HOCs.
