@@ -44,39 +44,25 @@ src/
 
 ## Design Choices
 
-**Component types — functional vs. class:** Every component in this project
-(`Header`, `PostList`, `Post`, `App`) is a **functional component**. None of
-them need lifecycle methods beyond what `useEffect` already covers (used
-inside the `withLogger` HOC), and functional components with hooks are the
-current React standard — they're more concise and easier to test than
-class components for this scale of UI. A class component would only have
-made sense here if a component needed multiple internal state values with
-complex `this` bindings, which none of these do.
+I used functional components for `Header`, `PostList`, `Post`, and `App`. They
+are enough for this small UI, and the only lifecycle-style work is already
+handled by `useEffect` in `withLogger`. Using classes here would add extra
+`this` and state handling without solving a real problem.
 
-**Styling methods:** Two methods are used, as required:
-1. **External CSS files** (`Header.css`, `Post.css`, `PostList.css`) for all
-   base layout and appearance.
-2. **Inline styles** in `Post.tsx`, where the card's background color is
-   computed per-render from `post.author` (see "Conditional styling" below).
+For styling, I kept the base layout in `Header.css`, `Post.css`, and
+`PostList.css`. In `Post.tsx`, I also use an inline style because the card
+background depends on the post author.
 
-**Conditional styling:**
-- Posts by `Jane Doe` get a highlighted background color (`#fff4d6`), set via
-  an inline `style` object computed from `post.author`.
-- Any post whose `datePosted` is within the last 24 hours shows a **"New!"**
-  badge, toggled by conditionally rendering a `<span>` with a CSS class from
-  `Post.css`. The first sample post is dated "now" specifically so you can
-  see this badge on load.
+For the conditional parts, posts by `Frida` get the `#fff4d6` background. A
+post from the last 24 hours gets a **"New!"** badge through a conditionally
+rendered `<span>` and a class from `Post.css`. The first post uses the current
+time so the badge is visible when the app loads.
 
-**Optimization & HOC:**
-- `Post` is wrapped in `React.memo` so it only re-renders when its own
-  `post` prop changes, not whenever `PostList`'s parent re-renders for
-  unrelated reasons.
-- Each `Post` is rendered with a stable, unique `key={post.id}` in
-  `PostList`, rather than the array index, so React can correctly track
-  list items if posts are ever reordered or removed.
-- `withLogger` is a Higher-Order Component that wraps `Header` and logs
-  `"[withLogger] Header mounted"` / `"...unmounted"` to the console via a
-  `useEffect` cleanup function.
+I wrapped `Post` in `React.memo`, so it does not re-render when its own `post`
+prop has not changed. Each list item uses `post.id` as its key instead of the
+array index, which keeps React's tracking stable if the list changes. Finally,
+`withLogger` wraps `Header` and logs its mount and unmount messages with a
+`useEffect` cleanup.
 
 ## External Libraries
 

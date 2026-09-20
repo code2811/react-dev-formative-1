@@ -1,9 +1,6 @@
 import { useEffect, type ComponentType } from 'react';
 
-// A simple Higher-Order Component: it wraps any component and logs to the
-// console when the wrapped component mounts and unmounts. This demonstrates
-// the HOC pattern of taking a component in and returning an enhanced
-// component out, without altering the wrapped component's own code.
+// Wrap a component and log when it mounts or unmounts.
 export function withLogger<P extends object>(
   WrappedComponent: ComponentType<P>,
   displayName?: string,
